@@ -7,5 +7,5 @@ describe('folder-select', () => {
     await page.setContent('<folder-select></folder-select>');
     const element = await page.find('folder-select');
     expect(element).toHaveClass('hydrated');
-  });{cursor}
+  });
 });
