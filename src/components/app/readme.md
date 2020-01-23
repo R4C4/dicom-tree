@@ -5,13 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `files`  | `files`   |             | `string` | `undefined` |
-
-
 ## Methods
 
 ### `getSelectedFiles() => Promise<Uint8Array[][]>`
@@ -21,6 +14,16 @@
 #### Returns
 
 Type: `Promise<Uint8Array[][]>`
+
+
+
+### `loadFiles(fileBuffer: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 

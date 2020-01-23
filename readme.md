@@ -27,8 +27,12 @@ Import package by using the script tag:
 ```
 or install with `npm install dicom-tree --save` and import into your application with import { dicom-tree } from 'dicom-tree'
 To include the DICOM component, simply  put the dicom tree tag. The files need to 
-```web
-  <dicom-tree #id='dicomtree' files = "filebuffer[] here" ><dicom-tree>
+```
+  <dicom-tree id="dicomtree" ><dicom-tree>
+```
+To Load Files into the Model pass a ArrayBuffer[] into the Model
+```
+  document.getElementById('dicomtree').loadFiles(arraybufferList);
 ```
 To get your selected files use:
 ```

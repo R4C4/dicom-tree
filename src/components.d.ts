@@ -22,8 +22,8 @@ import {
 
 export namespace Components {
   interface DicomApp {
-    'files'?: string;
     'getSelectedFiles': () => Promise<Uint8Array[][]>;
+    'loadFiles': (fileBuffer: any) => Promise<void>;
   }
   interface FolderSelect {}
   interface ImageView {
@@ -99,9 +99,7 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface DicomApp {
-    'files'?: string;
-  }
+  interface DicomApp {}
   interface FolderSelect {
     'onFilesLoaded'?: (event: CustomEvent<any>) => void;
   }

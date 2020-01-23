@@ -8,6 +8,7 @@ import { Component, h, Event, EventEmitter } from '@stencil/core';
 export class FolderSelect {
 
     @Event({
+        eventName: 'filesLoaded',
         bubbles: true
     }) filesLoaded: EventEmitter;
 
@@ -18,7 +19,7 @@ export class FolderSelect {
         this.fileBuffer = [];
     }
 
-    public onInputChange(files: FileList) {
+    private onInputChange(files: FileList) {
         this.fileBuffer = [];
         for(var  i = 0; i < files.length; i++ ){
             this.uploadFile(files[i], i == (files.length -1));
@@ -56,7 +57,7 @@ export class FolderSelect {
         return (
             <div>
                 <label class="btn btn-large btn-inverse btn-file">
-                    Convert Series
+                    Select Files
                 <input id="DICOMFiles" type="file" onChange = {($event : any) => this.onInputChange($event.target.files)} multiple></input>
                 </label>
             </div>
