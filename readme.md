@@ -23,9 +23,9 @@ npm test
 ## Using this component
 Import package by using the script tag:
 ```bash
- `<script src='https://unpkg.com/my-component@0.0.1/dist/mycomponent.js'></script>`
+ `<script src='https://unpkg.com/dicom-tree@1.0.2/dist/dicom-tree.js'></script>`
 ```
-or install with `npm install my-component --save` and import into your application with import { dicom-tree } from 'dicom-tree'
+or install with `npm install dicom-tree --save` and import into your application with import { dicom-tree } from 'dicom-tree'
 To include the DICOM component, simply  put the dicom tree tag. The files need to 
 ```web
   <dicom-tree #id='dicomtree' files = "filebuffer[] here" ><dicom-tree>
