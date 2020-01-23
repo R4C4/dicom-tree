@@ -2,7 +2,8 @@
 
 # Dicom Tree Loader
 
-Component build with the Stencil Starter Project  https://github.com/ionic-team/stencil-component-starter.git to parse and resolve DICOM - Directories. It provides a simple tree View with the DICOM - Relational Model. In this tree you can select series and get the selected dataFiles
+Github: https://github.com/R4C4/dicom-tree
+Web component to parse, resolve,  and display DICOM - Directoriesgit. It provides a simple tree View with the DICOM - Relational Model. In this tree you can select series and get the selected dataFiles
 
 To Debug use
 ```
@@ -23,7 +24,7 @@ npm test
 ## Using this component
 Import package by using the script tag:
 ```bash
- `<script src='https://unpkg.com/dicom-tree@1.0.2/dist/dicom-tree.js'></script>`
+ <script src='https://unpkg.com/dicom-tree@latest/dist/dicom-tree.js'></script>
 ```
 or install with `npm install dicom-tree --save` and import into your application with import { dicom-tree } from 'dicom-tree'
 To include the DICOM component, simply  put the dicom tree tag. The files need to 
