@@ -22,7 +22,7 @@ import {
 
 export namespace Components {
   interface DicomApp {
-    'files'?: ArrayBuffer[];
+    'files'?: string;
     'getSelectedFiles': () => Promise<Uint8Array[][]>;
   }
   interface FolderSelect {}
@@ -100,7 +100,7 @@ declare global {
 
 declare namespace LocalJSX {
   interface DicomApp {
-    'files'?: ArrayBuffer[];
+    'files'?: string;
   }
   interface FolderSelect {
     'onFilesLoaded'?: (event: CustomEvent<any>) => void;

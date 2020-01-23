@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type            | Default     |
-| -------- | --------- | ----------- | --------------- | ----------- |
-| `files`  | --        |             | `ArrayBuffer[]` | `undefined` |
+| Property | Attribute | Description | Type     | Default     |
+| -------- | --------- | ----------- | -------- | ----------- |
+| `files`  | `files`   |             | `string` | `undefined` |
 
 
 ## Methods

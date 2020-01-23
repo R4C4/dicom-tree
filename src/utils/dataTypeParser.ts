@@ -14,3 +14,10 @@ export function binaryToNumber(array:Uint8Array): Number
   }
   return count;
 }
+
+
+export async function base64ToBuffer(dataURI:string): Promise<ArrayBuffer>
+{
+  var res =  await fetch(dataURI).then( res => res.arrayBuffer());
+  return  res;
+}
