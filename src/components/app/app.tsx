@@ -24,6 +24,7 @@ export class App {
 
 
   constructor() {
+    console.log('i actually managed to get here');
   }
 
   componentWillLoad(){

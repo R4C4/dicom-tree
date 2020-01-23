@@ -1,7 +1,7 @@
 {
   "name": "dicom-tree",
   "version": "1.0.2",
-  "description": "Stencil Component Starter",
+  "description": "Dicom Tree File Builder",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -9,7 +9,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/dicom-mvvm/dicom-mvvm.js",
+  "unpkg": "dist/dicom-tree/dicom-tree.js",
   "files": [
     "dist/",
     "loader/"
