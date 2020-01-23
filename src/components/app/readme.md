@@ -29,13 +29,11 @@ Type: `Promise<Uint8Array[][]>`
 
 ### Depends on
 
-- [folder-select](../folder-select)
 - [patient-view](../views/patient-view)
 
 ### Graph
 ```mermaid
 graph TD;
-  dicom-app --> folder-select
   dicom-app --> patient-view
   patient-view --> tree-node
   patient-view --> study-view

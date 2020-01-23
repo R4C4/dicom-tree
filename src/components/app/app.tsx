@@ -25,9 +25,10 @@ export class App {
   connectedCallback() {
     this.ready = false;
     this.wantedItems = new Map();
-    if (this.files) {
-      this.files = null;
-    }
+    this.dicomParser = new DICOMParser(this.files);
+    let modelBuilder = new ModelBuilder();
+    this.patients = modelBuilder.buildDICOMModel(this.dicomParser.getParsedData());
+    this.ready = true;
   }
 
   @Listen('studySelected')
@@ -53,21 +54,10 @@ export class App {
     return Promise.resolve(fileGroups);
   }
 
-
-  @Listen('filesLoaded')
-  filesLoadedHandler(event: CustomEvent) {
-    this.files = event.detail as ArrayBuffer[]
-    this.dicomParser = new DICOMParser(this.files);
-    let modelBuilder = new ModelBuilder();
-    this.patients = modelBuilder.buildDICOMModel(this.dicomParser.getParsedData());
-    this.ready = true;
-  }
-
   render() {
     if (this.ready) {
       return (
         <Host>
-          <folder-select></folder-select>
           <h1>Dicom Directory</h1>
           <tree-caret>
             <h2 slot="title">Patients</h2>
@@ -81,11 +71,7 @@ export class App {
       );
     } else {
       return <Host>
-        <folder-select></folder-select>
       </Host>
     }
   }
-
-  private
-
 }

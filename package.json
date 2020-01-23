@@ -1,5 +1,5 @@
 {
-  "name": "dicom-mvvm",
+  "name": "dicom-tree",
   "version": "1.0.0",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
