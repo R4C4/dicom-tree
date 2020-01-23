@@ -2,21 +2,7 @@
 
 # Dicom Tree Loader
 
-Component build with the Stencil Starter Project  https://github.com/ionic-team/stencil-component-starter.git to parse and resolve DICOM - Directories
-
-
-
-# Stencil
-
-Stencil is a compiler for building fast web apps using Web Components.
-
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
-
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
-
-## Getting Started
-
-To start building a new web component using Stencil, clone this repo to a new directory:
+Component build with the Stencil Starter Project  https://github.com/ionic-team/stencil-component-starter.git to parse and resolve DICOM - Directories. It provides a simple tree View with the DICOM - Relational Model. In this tree you can select series and get the selected dataFiles
 
 To Debug use
 ```
@@ -35,15 +21,18 @@ To run the unit tests for the components, run:
 npm test
 ```
 ## Using this component
+Import package by using the script tag:
+```bash
+ `<script src='https://unpkg.com/my-component@0.0.1/dist/mycomponent.js'></script>`
+```
+or install with `npm install my-component --save` and import into your application with import { dicom-tree } from 'dicom-tree'
+To include the DICOM component, simply  put the dicom tree tag. The files need to 
+```web
+  <dicom-tree #id='dicomtree' files = "filebuffer[] here" ><dicom-tree>
+```
+To get your selected files use:
+```
+  document.getElementById('dicomtree').getSelectedFiles();
+```
 
-### Script tag
-
-- [Publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- Put a script tag similar to this `<script src='https://unpkg.com/my-component@0.0.1/dist/mycomponent.js'></script>` in the head of your index.html
-- Then you can use the element anywhere in your template, JSX, html etc
-
-### Node Modules
-- Run `npm install my-component --save`
-- Put a script tag similar to this `<script src='node_modules/my-component/dist/mycomponent.js'></script>` in the head of your index.html
-- Then you can use the element anywhere in your template, JSX, html etc
 
