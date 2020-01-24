@@ -28,7 +28,7 @@ export class FolderSelect {
 
     }
 
-    private uploadFile(file: File, lastFile: Boolean) {
+    private uploadFile(file: File, lastFile: boolean) {
         // create a new instance of HTML5 FileReader api to handle uploading
         const reader = new FileReader();
         reader.onloadstart = () => {
@@ -46,7 +46,7 @@ export class FolderSelect {
         };
 
         reader.onerror = (err) => {
-            console.error('something went wrong...', err);
+            console.error('something went wrong while trying to read the file ' + file.name, err);
         };
 
         reader.readAsArrayBuffer(file);

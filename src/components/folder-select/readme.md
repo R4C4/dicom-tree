@@ -1,6 +1,6 @@
 # folder-select
 
-
+Component selecting folder containing all dcm files. Filters for .dcm file ending
 
 <!-- Auto Generated Below -->
 
