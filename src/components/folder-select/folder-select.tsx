@@ -1,5 +1,4 @@
-import { Component, h, Event, EventEmitter } from '@stencil/core';
-
+import { Component, h, Event, EventEmitter, Host } from '@stencil/core';
 
 @Component({
     tag: 'folder-select',
@@ -11,13 +10,15 @@ export class FolderSelect {
         eventName: 'filesLoaded',
         bubbles: true
     }) filesLoaded: EventEmitter;
-
-    
     fileBuffer: ArrayBuffer[];
+
+    private input?:HTMLInputElement;
 
     constructor() {
         this.fileBuffer = [];
     }
+
+    connectedCallback(){}
 
     private onInputChange(files: FileList) {
         this.fileBuffer = [];
@@ -40,7 +41,7 @@ export class FolderSelect {
             this.fileBuffer.push(e.target.result as ArrayBuffer);
             if(lastFile){
                 this.filesLoaded.emit(this.fileBuffer);
-            }
+             }
             return;
         };
 
@@ -52,15 +53,20 @@ export class FolderSelect {
 
     }
 
+    handleClickEvent() {
+        this.input.click();
+    }
 
     render() {
         return (
-            <div>
-                <label class="btn btn-large btn-inverse btn-file">
+            <Host onClick = {() => this.handleClickEvent()} >
+                <slot name="buttonStyle">
                     Select Files
-                <input id="DICOMFiles" type="file" onChange = {($event : any) => this.onInputChange($event.target.files)} multiple></input>
-                </label>
-            </div>
+                    <input id="DICOMFiles" type="file" multiple accept= ".dcm"
+                        onChange = {($event : any) => this.onInputChange($event.target.files)}                         
+                        ref={(input)=> this.input = input as HTMLInputElement}></input>
+                </slot>
+            </Host>
         );
     }
 }

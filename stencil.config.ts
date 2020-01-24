@@ -1,10 +1,16 @@
 import { Config } from '@stencil/core';
 import nodePolyfills from 'rollup-plugin-node-polyfills';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'dicom-tree',
   plugins:[
-    nodePolyfills()
+    nodePolyfills(),
+    sass({
+      injectGlobalPaths: [
+        'src/scss/_global.scss'
+      ]
+    })
   ],
   outputTargets: [
     {
