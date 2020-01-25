@@ -21,7 +21,7 @@ export class ImageComponent {
 
     render() {
       return (
-        <Host class="ml-n4">
+        <Host class="ml-n2">
           <ul class="list-group" slot="content">
             <property-item descriptor="Number" value={this.image.number}></property-item>
             <property-item descriptor="Dimension (CxR)" value={this.getImageDimension()}></property-item>
