@@ -46,16 +46,19 @@ export class StudyView {
 
   render() {
     return (
-      <Host>
-        <small class="text-muted">Study</small>
-        <property-item descriptor="Id" value={this.study.id}></property-item>
+      <Host class="d-flex flex-column mt-0"> 
+        <ul class="list-group p-2">
+          <div class="d-flex flex-row mt-0 align-self-sm-start">
+            <input type="checkbox" class="form-check-input position-static ml-0"
+              onChange={() => this.handleCheckboxEvent()}
+              ref={(input) => this.input = input as HTMLInputElement}>
+            </input>
+            <small class="text-muted ml-1">Study</small>
+          </div>
+          <property-item descriptor="Id" value={this.study.id}></property-item>
+        </ul>
         <tree-node >
           <div class="text-muted" slot="title">Series</div>
-          <input type="checkbox" slot="checkbox" class ="align-middle"
-            onChange={() => this.handleCheckboxEvent()}
-            ref={(input) => this.input = input as HTMLInputElement}>
-              
-            </input>
           <ul class="list-group mb-0" slot="content">
             {this.study.series.map(seriesItem => (
               <li class="list-group-item">
