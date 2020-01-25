@@ -8,7 +8,8 @@ import { Component, Host, h, Prop, Element, getAssetPath } from '@stencil/core';
 export class NodeCaretView {
   @Prop() down: boolean;
   @Element() self: HTMLElement;
-  private imagePath:string;
+  private chevronRight: string;
+  private chevronDown: string;
 
   handleClick(event: UIEvent) {
     event.stopPropagation();
@@ -17,7 +18,9 @@ export class NodeCaretView {
   }
 
   componentWillLoad() {
-    this.imagePath = getAssetPath('./assets/chevron.svg');
+    this.chevronRight = getAssetPath('../../assets/chevron.svg');
+    this.chevronDown = getAssetPath('../../assets/chevron-down.svg');
+
   }
 
 
@@ -27,10 +30,11 @@ export class NodeCaretView {
         <div class="container" onClick={(e: UIEvent) => this.handleClick(e)} >
           <div class="row">
             <div class="column">
-              <img src={this.imagePath} class={{
-                'caret': true,
-                'caret-down': this.down
-              }}></img>
+              {
+                this.down ?
+                  <img src={this.chevronDown}></img> :
+                  <img src={this.chevronRight}></img>
+              }
             </div>
             <div class="column">
               <slot name="title"></slot>

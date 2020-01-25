@@ -6,17 +6,17 @@
 .caret {
   cursor: pointer;
   user-select: none; /* Prevent text selection */
-  display: inline;
+  display: inline-block;
 }
 
 .caret::before {
-  color: black;
-  display: inline-block;
-  white-space: nowrap;
   margin-right: 5px;
-  margin-top: 10px;
 }
 
 .caret-down::before {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }

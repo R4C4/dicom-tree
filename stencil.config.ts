@@ -26,6 +26,6 @@ export const config: Config = {
     }
   ],
   copy: [
-    {src: './assets/*', dest: '/assets'}
+    {src: './assets/', dest: '/assets'}
   ]
 };
