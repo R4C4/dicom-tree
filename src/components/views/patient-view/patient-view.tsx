@@ -49,7 +49,7 @@ export class PatientView {
           <property-item descriptor="Id" value={this.patient.id}></property-item>
           <property-item descriptor="Name" value={this.patient.name}></property-item>
         </ul>
-        <tree-node>
+        <tree-node down={true}>
           <div class="text-muted" slot="title">Studies:</div>
           <ul class="list-group mb-0" slot="content">
             {this.patient.studies.map(study => (

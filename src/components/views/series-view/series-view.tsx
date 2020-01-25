@@ -56,7 +56,7 @@ export class SeriesView {
           <property-item descriptor="UId" value={this.series.uid}></property-item>
           <property-item descriptor="Number" value={this.series.number}></property-item>
         </ul>
-        <tree-node>
+        <tree-node down={false}>
           <div class="text-muted" slot="title">Images:</div>
           <ul slot="content" class="list-group mb-0">
             {this.series.images.map(img => (

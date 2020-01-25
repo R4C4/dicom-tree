@@ -29,9 +29,6 @@ export class NodeCaretView {
       <Host>
         <div class="container">
           <div class="row">
-            <div class="column">
-              <slot name="checkbox"></slot>
-            </div>
             <div class="column"  onClick={(e: UIEvent) => this.handleClick(e)}> 
               {
                 this.down ?

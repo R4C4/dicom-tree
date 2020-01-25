@@ -57,7 +57,7 @@ export class StudyView {
           </div>
           <property-item descriptor="Id" value={this.study.id}></property-item>
         </ul>
-        <tree-node >
+        <tree-node down={true} >
           <div class="text-muted" slot="title">Series</div>
           <ul class="list-group mb-0" slot="content">
             {this.study.series.map(seriesItem => (
