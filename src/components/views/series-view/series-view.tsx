@@ -37,7 +37,18 @@ export class SeriesView {
   }
 
   getSeriesDimension() {
-
+    if(this.series.images.length > 0){
+      let columns = this.series.images[0].column;
+      let rows = this.series.images[0].rows;
+      let layers =this.series.images.length;
+      return(
+        <span>
+          {columns}x{rows}x{layers} 
+        </span>
+      );
+    }else{
+      return (<span>No Info</span>);
+    }
   }
 
 
@@ -55,6 +66,7 @@ export class SeriesView {
           <property-item descriptor="Modality" value={this.series.modality}></property-item>
           <property-item descriptor="UId" value={this.series.uid}></property-item>
           <property-item descriptor="Number" value={this.series.number}></property-item>
+          <property-item descriptor="Image Dimensions (CxRxL): " value={this.getSeriesDimension()}></property-item>
         </ul>
         <tree-node down={false}>
           <div class="text-muted" slot="title">Images:</div>
