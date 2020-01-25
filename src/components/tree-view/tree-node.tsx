@@ -18,8 +18,8 @@ export class NodeCaretView {
   }
 
   componentWillLoad() {
-    this.chevronRight = getAssetPath('../../assets/chevron.svg');
-    this.chevronDown = getAssetPath('../../assets/chevron-down.svg');
+    this.chevronRight = getAssetPath('/../assets/chevron.svg');
+    this.chevronDown = getAssetPath('/../assets/chevron-down.svg');
 
   }
 

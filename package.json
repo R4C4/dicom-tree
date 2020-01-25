@@ -12,7 +12,7 @@
   "unpkg": "dist/dicom-tree/dicom-tree.js",
   "files": [
     "dist/",
-    "loader/"
+    "dist/loader/"
   ],
   "scripts": {
     "build": "stencil build --docs",
