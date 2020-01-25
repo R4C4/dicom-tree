@@ -8,7 +8,7 @@ export const config: Config = {
     nodePolyfills(),
     sass({
       injectGlobalPaths: [
-        'src/scss/_global.scss'
+        'scss/_global.scss'
       ]
     })
   ],

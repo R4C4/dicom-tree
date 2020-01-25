@@ -9,16 +9,18 @@
   display: inline;
 }
 
-/* Create the caret/arrow with a unicode, and style it */
 .caret::before {
-  content: "\25B6";
   color: black;
   display: inline-block;
   white-space: nowrap;
   margin-right: 5px;
+  margin-top: 10px;
 }
 
-/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
 .caret-down::before {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }

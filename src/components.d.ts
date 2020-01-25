@@ -33,9 +33,11 @@ export namespace Components {
     'patient': Patient;
   }
   interface SeriesView {
+    'checked': boolean;
     'series': Series;
   }
   interface StudyView {
+    'checked': boolean;
     'study': Study;
   }
   interface TreeNode {
@@ -110,10 +112,12 @@ declare namespace LocalJSX {
     'patient'?: Patient;
   }
   interface SeriesView {
+    'checked'?: boolean;
     'onSeriesSelected'?: (event: CustomEvent<any>) => void;
     'series'?: Series;
   }
   interface StudyView {
+    'checked'?: boolean;
     'onStudySelected'?: (event: CustomEvent<any>) => void;
     'study'?: Study;
   }
