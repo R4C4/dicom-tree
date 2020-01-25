@@ -5,12 +5,10 @@ import { Series } from '../../model/Series';
 import { ModelBuilder } from '../../utils/modelBuilder';
 import { DICOMParser } from '../../utils/loader';
 
-
 @Component({
   tag: 'dicom-app',
   styleUrl: 'dicom-app.scss',
-  shadow: true,
-  assetsDir: '../../assets'
+  shadow: true
 })
 export class DicomApp {
   @State() ready: boolean;

@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element, getAssetPath } from '@stencil/core';
+import { Component, Host, h, Prop, Element} from '@stencil/core';
 
 @Component({
   tag: 'tree-node',
@@ -8,8 +8,6 @@ import { Component, Host, h, Prop, Element, getAssetPath } from '@stencil/core';
 export class NodeCaretView {
   @Prop() down: boolean;
   @Element() self: HTMLElement;
-  private chevronRight: string;
-  private chevronDown: string;
 
   handleClick(event: UIEvent) {
     event.stopPropagation();
@@ -18,9 +16,18 @@ export class NodeCaretView {
   }
 
   componentWillLoad() {
-    this.chevronRight = getAssetPath('/../assets/chevron.svg');
-    this.chevronDown = getAssetPath('/../assets/chevron-down.svg');
+  }
 
+  getChevronDown(){
+    return(
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>
+    );
+  }
+
+  getChevronRight(){
+    return(
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M9.29 6.71c-.39.39-.39 1.02 0 1.41L13.17 12l-3.88 3.88c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/></svg>
+    );
   }
 
 
@@ -32,8 +39,8 @@ export class NodeCaretView {
             <div class="column"  onClick={(e: UIEvent) => this.handleClick(e)}> 
               {
                 this.down ?
-                  <img class="align-middle" src={this.chevronDown}></img> :
-                  <img class="align-middle"src={this.chevronRight}></img>
+                  this.getChevronDown():
+                  this.getChevronRight()
               }
             </div>
             <div class="column"  onClick={(e: UIEvent) => this.handleClick(e)}>

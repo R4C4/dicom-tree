@@ -11,8 +11,7 @@
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/dicom-tree/dicom-tree.js",
   "files": [
-    "dist/",
-    "dist/loader/"
+    "dist/"
   ],
   "scripts": {
     "build": "stencil build --docs",
