@@ -40,22 +40,22 @@ export class SeriesView {
   render() {
     return (
       <Host>
-        <div class="row">
-          <input type="checkbox" class="column form-check-input position-static"
+        <div class="row align-top">
+          <input type="checkbox" class="column form-check-input position-static align-top"
             onChange={() => this.handleCheckboxEvent()}
             ref={(input) => this.input = input as HTMLInputElement}>
           </input>
-          <div class="list-group">
+          <div class="column list-group">
             <property-item descriptor="UId" value={this.series.uid}></property-item>
             <property-item descriptor="Modality" value={this.series.modality}></property-item>
             <property-item descriptor="Number" value={this.series.number}></property-item>
           </div>
         </div>
         <tree-node>
-          <span slot="title">Images:</span>
+          <div class="text-muted" slot="title">Images:</div>
           <ul slot="content" class="list-group mb-0">
             {this.series.images.map(img => (
-              <li class="list-group"><image-view image={img}></image-view></li>
+              <li class="list-group-item"><image-view image={img}></image-view></li>
             ))}
           </ul>
         </tree-node>

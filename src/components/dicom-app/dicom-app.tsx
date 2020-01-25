@@ -65,11 +65,11 @@ export class App {
           <h1>Dicom Directory</h1>
           <tree-caret>
             <h2 slot="title">Patients</h2>
-            <div slot="content">
+            <ul class="list-group mb-0" slot="content">
               {this.patients.map(patient => (
-                <patient-view patient={patient}></patient-view>
+                <li class="list-group-item"><patient-view patient={patient}></patient-view></li>
               ))}
-            </div>
+            </ul>
           </tree-caret>
         </Host>
       );
