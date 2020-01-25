@@ -2,7 +2,7 @@ import { Component, h, Event, EventEmitter, Host } from '@stencil/core';
 
 @Component({
     tag: 'folder-select',
-    styleUrl: 'folder-select.css'
+    styleUrl: 'folder-select.scss'
 })
 export class FolderSelect {
 
@@ -12,18 +12,25 @@ export class FolderSelect {
     }) filesLoaded: EventEmitter;
     fileBuffer: ArrayBuffer[];
 
-    private input?:HTMLInputElement;
+    private input?: HTMLInputElement;
 
     constructor() {
         this.fileBuffer = [];
     }
 
-    connectedCallback(){}
+    connectedCallback() { }
+
+    componentDidLoad() {
+
+        this.input.setAttribute('webkitdirectory', '');
+        this.input.setAttribute('mozdirectory', '');
+    }
 
     private onInputChange(files: FileList) {
         this.fileBuffer = [];
-        for(var  i = 0; i < files.length; i++ ){
-            this.uploadFile(files[i], i == (files.length -1));
+        let filteredFiles = Array.from(files).filter((file) => file.name.split('.').pop() == 'dcm');
+        for (var i = 0; i < filteredFiles.length; i++) {
+            this.uploadFile(filteredFiles[i], i == (filteredFiles.length - 1));
         }
 
     }
@@ -35,13 +42,13 @@ export class FolderSelect {
         }
 
         reader.onload = (e) => {
-            if(e.target.result instanceof String) {
+            if (e.target.result instanceof String) {
                 return;
             }
             this.fileBuffer.push(e.target.result as ArrayBuffer);
-            if(lastFile){
+            if (lastFile) {
                 this.filesLoaded.emit(this.fileBuffer);
-             }
+            }
             return;
         };
 
@@ -59,12 +66,12 @@ export class FolderSelect {
 
     render() {
         return (
-            <Host onClick = {() => this.handleClickEvent()} >
+            <Host onClick={() => this.handleClickEvent()}  >
                 <slot name="buttonStyle">
                     Select Files
-                    <input id="DICOMFiles" type="file" multiple accept= ".dcm"
-                        onChange = {($event : any) => this.onInputChange($event.target.files)}                         
-                        ref={(input)=> this.input = input as HTMLInputElement}></input>
+                    <input id="DICOMFiles" type="file" multiple accept=".dcm"
+                        onChange={($event: any) => this.onInputChange($event.target.files)}
+                        ref={(input) => this.input = input as HTMLInputElement}></input>
                 </slot>
             </Host>
         );
