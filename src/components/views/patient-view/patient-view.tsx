@@ -4,24 +4,27 @@ import { Patient } from '../../../model/Patient';
 
 @Component({
   tag: 'patient-view',
-  styleUrl: 'patient-view.css',
+  styleUrl: 'patient-view.scss',
   shadow: true
 })
 export class PatientView {
 
   @Prop() patient: Patient;
 
+  connectedCallback() {
+
+  }
+
   render() {
     return (
       <Host>
-        <b>Patient</b>
-        <li>Id: {this.patient.id}</li>
-        <li >Name: {this.patient.name}</li>
+        <property-item descriptor="Id" value={this.patient.id}></property-item>
+        <property-item descriptor="Name" value={this.patient.name}></property-item>
         <tree-node>
-          <b slot="title">Studies:</b>
+          <div class="text-muted" slot="title">Studies:</div>
           <div slot="content">
-          {this.patient.studies.map(study => (
-              <li><study-view study={study}></study-view></li>
+            {this.patient.studies.map(study => (
+              <study-view study={study}></study-view>
             ))}
           </div>
         </tree-node>

@@ -27,16 +27,19 @@ export class NodeCaretView {
   render() {
     return (
       <Host>
-        <div class="container" onClick={(e: UIEvent) => this.handleClick(e)} >
+        <div class="container">
           <div class="row">
             <div class="column">
+              <slot name="checkbox"></slot>
+            </div>
+            <div class="column"  onClick={(e: UIEvent) => this.handleClick(e)}> 
               {
                 this.down ?
-                  <img src={this.chevronDown}></img> :
-                  <img src={this.chevronRight}></img>
+                  <img class="align-middle" src={this.chevronDown}></img> :
+                  <img class="align-middle"src={this.chevronRight}></img>
               }
             </div>
-            <div class="column">
+            <div class="column"  onClick={(e: UIEvent) => this.handleClick(e)}>
               <slot name="title"></slot>
             </div>
           </div>

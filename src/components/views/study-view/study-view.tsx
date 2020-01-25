@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Listen, EventEmitter, Event, Watch, State } from '@stencil/core';
+import { Component, Host, h, Prop, Listen, EventEmitter, Event, Watch } from '@stencil/core';
 
 import { Study } from '../../../model/Study';
 
@@ -15,9 +15,12 @@ export class StudyView {
     bubbles: true
   }) studySelected: EventEmitter;
 
-  @State() private input?: HTMLInputElement;
+  private input?: HTMLInputElement;
 
   connectedCallback() {
+  }
+
+  componentWillUpRender() {
     this.checked = false;
   }
 
@@ -44,17 +47,19 @@ export class StudyView {
   render() {
     return (
       <Host>
-        <li>Id: {this.study.id}</li>
+        <property-item descriptor="Id" value={this.study.id}></property-item>
         <tree-node >
-          <input type="checkbox"
+          <div class="text-muted" slot="title">Series</div>
+          <input type="checkbox" slot="checkbox" class ="align-middle"
             onChange={() => this.handleCheckboxEvent()}
             ref={(input) => this.input = input as HTMLInputElement}></input>
-          <b slot="title">Series</b>
-          <div slot="content">
+          <ul class="list-inline" slot="content">
             {this.study.series.map(seriesItem => (
-              <series-view series={seriesItem} checked={this.checked} ></series-view>
+              <li class="list-inline-item">
+                <series-view series={seriesItem} checked={this.checked} ></series-view>
+              </li>
             ))}
-          </div>
+          </ul>
         </tree-node>
       </Host>
     );

@@ -32,6 +32,10 @@ export namespace Components {
   interface PatientView {
     'patient': Patient;
   }
+  interface PropertyItem {
+    'descriptor': String;
+    'value': String;
+  }
   interface SeriesView {
     'checked': boolean;
     'series': Series;
@@ -72,6 +76,12 @@ declare global {
     new (): HTMLPatientViewElement;
   };
 
+  interface HTMLPropertyItemElement extends Components.PropertyItem, HTMLStencilElement {}
+  var HTMLPropertyItemElement: {
+    prototype: HTMLPropertyItemElement;
+    new (): HTMLPropertyItemElement;
+  };
+
   interface HTMLSeriesViewElement extends Components.SeriesView, HTMLStencilElement {}
   var HTMLSeriesViewElement: {
     prototype: HTMLSeriesViewElement;
@@ -94,6 +104,7 @@ declare global {
     'folder-select': HTMLFolderSelectElement;
     'image-view': HTMLImageViewElement;
     'patient-view': HTMLPatientViewElement;
+    'property-item': HTMLPropertyItemElement;
     'series-view': HTMLSeriesViewElement;
     'study-view': HTMLStudyViewElement;
     'tree-node': HTMLTreeNodeElement;
@@ -110,6 +121,10 @@ declare namespace LocalJSX {
   }
   interface PatientView {
     'patient'?: Patient;
+  }
+  interface PropertyItem {
+    'descriptor'?: String;
+    'value'?: String;
   }
   interface SeriesView {
     'checked'?: boolean;
@@ -130,6 +145,7 @@ declare namespace LocalJSX {
     'folder-select': FolderSelect;
     'image-view': ImageView;
     'patient-view': PatientView;
+    'property-item': PropertyItem;
     'series-view': SeriesView;
     'study-view': StudyView;
     'tree-node': TreeNode;
@@ -146,6 +162,7 @@ declare module "@stencil/core" {
       'folder-select': LocalJSX.FolderSelect & JSXBase.HTMLAttributes<HTMLFolderSelectElement>;
       'image-view': LocalJSX.ImageView & JSXBase.HTMLAttributes<HTMLImageViewElement>;
       'patient-view': LocalJSX.PatientView & JSXBase.HTMLAttributes<HTMLPatientViewElement>;
+      'property-item': LocalJSX.PropertyItem & JSXBase.HTMLAttributes<HTMLPropertyItemElement>;
       'series-view': LocalJSX.SeriesView & JSXBase.HTMLAttributes<HTMLSeriesViewElement>;
       'study-view': LocalJSX.StudyView & JSXBase.HTMLAttributes<HTMLStudyViewElement>;
       'tree-node': LocalJSX.TreeNode & JSXBase.HTMLAttributes<HTMLTreeNodeElement>;
