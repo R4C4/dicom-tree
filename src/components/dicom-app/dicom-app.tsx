@@ -7,7 +7,7 @@ import { DICOMParser } from '../../utils/loader';
 
 @Component({
   tag: 'dicom-app',
-  styleUrl: 'app.css',
+  styleUrl: 'dicom-app.scss',
   shadow: true
 })
 export class App {
