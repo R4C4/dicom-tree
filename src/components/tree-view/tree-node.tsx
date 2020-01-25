@@ -3,7 +3,7 @@ import { Component, Host, h, Prop, Element, getAssetPath } from '@stencil/core';
 @Component({
   tag: 'tree-node',
   styleUrl: 'tree-node.scss',
-  assetsDirs: ['assets']
+
 })
 export class NodeCaretView {
   @Prop() down: boolean;
