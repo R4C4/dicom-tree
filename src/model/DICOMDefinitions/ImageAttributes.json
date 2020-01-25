@@ -7,7 +7,5 @@
   "PixelSpacing" : "x00280030",
   "PhotometricInterpretation": "x00280004",
   "Rows": "x00280011",
-  "Columns": "x00280011",
-  "ImagePositionPatient": "x00200032",
-  "ImageOrientationPatient": "x00200037"
+  "Columns": "x00280011"
 }

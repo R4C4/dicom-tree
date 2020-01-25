@@ -30,6 +30,7 @@ export namespace Components {
     'image': Image;
   }
   interface PatientView {
+    'checked': boolean;
     'patient': Patient;
   }
   interface PropertyItem {
@@ -120,6 +121,8 @@ declare namespace LocalJSX {
     'image'?: Image;
   }
   interface PatientView {
+    'checked'?: boolean;
+    'onSeriesSelected'?: (event: CustomEvent<any>) => void;
     'patient'?: Patient;
   }
   interface PropertyItem {

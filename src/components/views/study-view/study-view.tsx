@@ -53,7 +53,9 @@ export class StudyView {
           <div class="text-muted" slot="title">Series</div>
           <input type="checkbox" slot="checkbox" class ="align-middle"
             onChange={() => this.handleCheckboxEvent()}
-            ref={(input) => this.input = input as HTMLInputElement}></input>
+            ref={(input) => this.input = input as HTMLInputElement}>
+              
+            </input>
           <ul class="list-group mb-0" slot="content">
             {this.study.series.map(seriesItem => (
               <li class="list-group-item">

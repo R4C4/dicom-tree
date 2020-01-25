@@ -4,7 +4,7 @@ import { Image } from '../../../model/Image';
 
 @Component({
   tag: 'image-view',
-  styleUrl: 'image-view.css',
+  styleUrl: 'image-view.scss',
   shadow: true
 })
 export class ImageComponent {
@@ -13,15 +13,22 @@ export class ImageComponent {
   connectedCallback() {
   }
 
-  render() {
-    return (
-      <Host>
-        <b slot="title">Number: {this.image.number}</b>
-        <p>Dimension (CxR): {this.image.column}x{this.image.rows}</p>
-        <p>Image Orientation (Patient): {this.image.imageOrientation}</p>
-        <p>Patient Position: {this.image.position}</p>
-      </Host>
-    );
+  getImageDimension() {
+    return (<span>
+      {this.image.column}x{this.image.rows}
+    </span>);
   }
 
-}
+    render() {
+      return (
+        <Host class="ml-n4">
+          <ul class="list-group" slot="content">
+            <property-item descriptor="Number" value={this.image.number}></property-item>
+            <property-item descriptor="Dimension (CxR)" value={this.getImageDimension()}></property-item>
+            <property-item descriptor="Patient Position" value={this.image.position}></property-item>
+          </ul>
+        </Host>
+      );
+    }
+
+  }

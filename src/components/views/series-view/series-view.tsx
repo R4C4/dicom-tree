@@ -15,7 +15,7 @@ export class SeriesView {
     bubbles: true
   }) seriesSelected: EventEmitter;
 
-  input?: HTMLInputElement;
+  private input?: HTMLInputElement;
 
   connectedCallback() {
   }
@@ -36,18 +36,24 @@ export class SeriesView {
     this.seriesSelected.emit({ series: this.series, selected: this.input.checked });
   }
 
+  getSeriesDimension() {
+
+  }
+
 
   render() {
     return (
-      <Host class="d-flex flex-column">
-        <small class="text-muted">Series Item</small>
+      <Host class="d-flex flex-column mt-n3">
         <ul class="list-group p-2">
-          <input type="checkbox" class="form-check-input position-static list-group-item ml-0 align-self-sm-start"
-            onChange={() => this.handleCheckboxEvent()}
-            ref={(input) => this.input = input as HTMLInputElement}>
-          </input>
-          <property-item descriptor="UId" value={this.series.uid}></property-item>
+          <div class="d-flex flex-row mt-0 align-self-sm-start">
+            <input type="checkbox" class="form-check-input position-static ml-0"
+              onChange={() => this.handleCheckboxEvent()}
+              ref={(input) => this.input = input as HTMLInputElement}>
+            </input>
+            <small class="text-muted ml-1">Series Item</small>
+          </div>
           <property-item descriptor="Modality" value={this.series.modality}></property-item>
+          <property-item descriptor="UId" value={this.series.uid}></property-item>
           <property-item descriptor="Number" value={this.series.number}></property-item>
         </ul>
         <tree-node>
