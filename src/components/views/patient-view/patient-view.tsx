@@ -18,6 +18,7 @@ export class PatientView {
   render() {
     return (
       <Host>
+        <small class="text-muted">Patient</small>
         <property-item descriptor="Id" value={this.patient.id}></property-item>
         <property-item descriptor="Name" value={this.patient.name}></property-item>
         <tree-node>

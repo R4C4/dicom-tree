@@ -47,6 +47,7 @@ export class StudyView {
   render() {
     return (
       <Host>
+        <small class="text-muted">Study</small>
         <property-item descriptor="Id" value={this.study.id}></property-item>
         <tree-node >
           <div class="text-muted" slot="title">Series</div>
