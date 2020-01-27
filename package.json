@@ -11,7 +11,8 @@
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/dicom-tree/dicom-tree.js",
   "files": [
-    "dist/"
+    "dist/",
+    "loader/"
   ],
   "scripts": {
     "build": "stencil build --docs",
@@ -20,14 +21,16 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
+  "dependencies": {
+    "dicom-parser": "^1.8.4"
+  },
   "devDependencies": {
-    "@stencil/core": "latest",
+    "@stencil/core": "^1.8.6",
     "@stencil/sass": "^1.1.1",
     "@types/jest": "24.0.25",
     "@types/node": "^13.5.0",
     "@types/puppeteer": "1.19.0",
     "bootstrap": "^4.4.1",
-    "dicom-parser": "^1.8.4",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
     "puppeteer": "1.19.0",

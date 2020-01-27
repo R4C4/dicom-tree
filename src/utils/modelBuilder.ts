@@ -3,10 +3,10 @@ import { Study } from '../model/Study';
 import { Series } from '../model/Series';
 import { Image } from '../model/Image';
 
-import patientAttributes from '../model/DICOMDefinitions/PatientAttributes.json';
-import studyAttributes from '../model/DICOMDefinitions/StudyAttributes.json';
-import seriesAttributes from '../model/DICOMDefinitions/SeriesAttributes.json';
-import imageAttributes from '../model/DICOMDefinitions/ImageAttributes.json';
+import patientAttributes from '../assets/PatientAttributes.json';
+import studyAttributes from '../assets/StudyAttributes.json';
+import seriesAttributes from '../assets/SeriesAttributes.json';
+import imageAttributes from '../assets/ImageAttributes.json';
 import { binaryToString } from './dataTypeParser';
 
 export class ModelBuilder {

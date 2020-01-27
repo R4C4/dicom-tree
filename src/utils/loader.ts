@@ -2,8 +2,8 @@ import dicomParser from 'dicom-parser';
 
 import { Series } from '../model/Series';
 
-import seriesAttributes from '../model/DICOMDefinitions/SeriesAttributes.json';
-import studyAttributes from '../model/DICOMDefinitions/StudyAttributes.json';
+import seriesAttributes from '../assets/SeriesAttributes.json';
+import studyAttributes from '../assets/StudyAttributes.json';
 
 export class DICOMParser {
   private dataSet: any[];

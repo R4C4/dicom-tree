@@ -8,13 +8,17 @@ export const config: Config = {
     nodePolyfills(),
     sass({
       injectGlobalPaths: [
-        'scss/_global.scss'
+        'scss/_global.scss',
       ]
     })
   ],
   outputTargets: [
     {
-      type: 'dist'
+      type: 'dist',
+      esmLoaderPath: '../loader',
+      copy:[
+        { src:'./assets', dest: 'assets'}
+      ]
     },
     {
       type: 'docs-readme'
