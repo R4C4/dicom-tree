@@ -2,8 +2,7 @@
 
 # Dicom Tree Loader
 
-Github: https://github.com/R4C4/dicom-tree
-Web component to parse, resolve,  and display DICOM - Directoriesgit. It provides a simple tree View with the DICOM - Relational Model. In this tree you can select series and get the selected dataFiles
+Stencil Generated web component to parse, resolve,  and display DICOM - Directories. It provides a simple tree View with the DICOM - Relational Model. In this tree you can select individual series and get the selected data files
 
 To Debug use
 ```

@@ -21,6 +21,9 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
+  "repository": {
+    "url": "https://github.com/R4C4/dicom-tree"
+  },
   "dependencies": {
     "dicom-parser": "^1.8.4"
   },

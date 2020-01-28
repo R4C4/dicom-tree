@@ -74,7 +74,6 @@ export class DicomApp {
     if (this.ready) {
       return (
         <Host>
-          <h1>Dicom Directory</h1>
           <tree-caret>
             <h2 slot="title">Patients</h2>
             <ul class="list-group mb-0" slot="content">

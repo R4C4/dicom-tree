@@ -4,12 +4,19 @@ import { Component, h, Event, EventEmitter, Host } from '@stencil/core';
     tag: 'folder-select',
     styleUrl: 'folder-select.scss'
 })
+/**
+ * Folder Selector Component using webkitdirectory with multiple attribute fallback
+ */
 export class FolderSelect {
 
     @Event({
         eventName: 'filesLoaded',
         bubbles: true
-    }) filesLoaded: EventEmitter;
+    })
+    /**
+     * Event 'filesLoaded' emmited when files have been submitted and its contents read into buffers
+     *  */ 
+    filesLoaded: EventEmitter;
     fileBuffer: ArrayBuffer[];
 
     private input?: HTMLInputElement;
