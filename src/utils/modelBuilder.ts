@@ -34,7 +34,10 @@ export class ModelBuilder {
     });
 
     this.patients.forEach((patient) => {
-      let patientSpecificDataSet = dataSet.filter((dcmFile) => dcmFile.string(patientAttributes.Id) == patient.id);
+      let patientSpecificDataSet = dataSet.filter((dcmFile) => {
+        let patientBuilder = this.readAllDefinedAttributes(patientAttributes, dcmFile);
+        return binaryToString(patientBuilder.get('Id')) == patient.id
+      });
       if (patientSpecificDataSet.length < 1) {
         throw new RangeError("Patient Model cannot be build from provided Datasets. A DataSet with no registered Patient was found. Dataset PatientId: " + patient.id);
       } else {
@@ -50,21 +53,32 @@ export class ModelBuilder {
    */
   private buildStudyModel(dataSet: any[]): Study[] {
     let studies: Study[] = [];
+ 
     dataSet.forEach((dcmData) => {
+
       let studyBuilder = this.readAllDefinedAttributes(studyAttributes, dcmData);
-      if (!studyBuilder.has('Id') || binaryToString(studyBuilder.get('Id')) == "") {
+      if (!studyBuilder.has('UId') || binaryToString(studyBuilder.get('UId')) == "") {
         //Skip any files that cannot be associated in the Study Model
         return;
       }
-      if (!studies.some((study) => study.id == binaryToString(studyBuilder.get('Id')))) {
-        studies.push(new Study(studyBuilder));
+
+      if (!studies.some((study) => study.uid == binaryToString(studyBuilder.get('UId')))) {
+        let currentStudy = new Study(studyBuilder);
+        studies.push(currentStudy);
       }
     });
 
+    studies.map((study) => {
+      console.log("Study found with uid " + study.uid);
+    });
+
     studies.forEach((study) => {
-      let studySpecificDataSet = dataSet.filter((dcmFile) => dcmFile.string(studyAttributes.Id) == study.id);
+      let studySpecificDataSet = dataSet.filter((dcmFile) =>{ 
+        let studyBuilder = this.readAllDefinedAttributes(studyAttributes, dcmFile);
+        return binaryToString(studyBuilder.get('UId')) == study.uid
+      });
       if (studySpecificDataSet.length < 1) {
-        throw new RangeError("Study Model cannot be build from provided Datasets. A DataSet with no registered Study was found. Dataset StudyID: " + study.id);
+        throw new RangeError("Study Model cannot be build from provided Datasets. A DataSet with no registered Study was found. Dataset StudyUID: " + study.uid);
       } else {
         study.series = this.buildSeriesModel(studySpecificDataSet);
       }

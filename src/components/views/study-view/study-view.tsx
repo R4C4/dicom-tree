@@ -55,6 +55,7 @@ export class StudyView {
             </input>
             <small class="text-muted ml-1">Study</small>
           </div>
+         <property-item descriptor="UId" value={this.study.uid}></property-item>
           <property-item descriptor="Id" value={this.study.id}></property-item>
         </ul>
         <tree-node down={true} >
