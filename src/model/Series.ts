@@ -10,7 +10,7 @@ export class Series{
   images:Image[];
 
   public constructor(seriesBuilder:Map<string,Uint8Array>){
-    this.uid = seriesBuilder.has('InstanceUId') ? binaryToString(seriesBuilder.get('InstanceUId')) : '';
+    this.uid = seriesBuilder.has('UId') ? binaryToString(seriesBuilder.get('UId')) : '';
     this.number = seriesBuilder.has('SeriesNumber') ? binaryToString(seriesBuilder.get('SeriesNumber')) : '0';
     this.modality = seriesBuilder.has('Modality') ? binaryToString(seriesBuilder.get('Modality')):  '';
     this.position = seriesBuilder.has('ImagePositionPatient') ? binaryToString(seriesBuilder.get('ImagePositionPatient')): '';

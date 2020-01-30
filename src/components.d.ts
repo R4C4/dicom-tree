@@ -23,7 +23,7 @@ import {
 export namespace Components {
   interface DicomApp {
     'blackList': String[];
-    'getSelectedFiles': () => Promise<Uint8Array[][]>;
+    'getSelectedFiles': () => Promise<ArrayBuffer[][]>;
     'loadFiles': (fileBuffer: ArrayBuffer[]) => Promise<void>;
   }
   interface FolderSelect {}

@@ -39,9 +39,7 @@ export class FolderSelect {
 
     private onInputChange(files: FileList) {
         this.fileBuffer = [];
-        console.log('files Input raw' + files.length);
         let filteredFiles = Array.from(files).filter((file) => file.name.split('.').pop() == 'dcm');
-        console.log('files Input filtered' + files.length);
         for (var i = 0; i < filteredFiles.length; i++) {
             this.uploadFile(filteredFiles[i], filteredFiles.length);
         }

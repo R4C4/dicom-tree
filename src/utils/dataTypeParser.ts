@@ -1,8 +1,6 @@
 export function binaryToString(array:Uint8Array): String
 {
-  let encodedString = encodeURIComponent(String.fromCharCode.apply(null, array));
-
-  return decodeURIComponent(encodedString);
+  return new TextDecoder("utf-8").decode(array).normalize();
 }
 
 

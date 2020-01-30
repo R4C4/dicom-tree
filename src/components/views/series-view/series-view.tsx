@@ -25,15 +25,19 @@ export class SeriesView {
   }
 
   @Watch('checked')
-  checkedPropertyWatchdog(newValue: boolean) {
+  checkedPropertyWatchdog(newValue: boolean, oldValue:boolean) {
+    if(oldValue == newValue){
+      return;
+    }
+    console.log("Series " + this.series.modality + ' was checked');
     if (this.input != null) {
       this.input.checked = newValue;
+      this.seriesSelected.emit({ series: this.series, selected: this.input.checked });
     }
   }
 
   handleCheckboxEvent() {
     this.checked = this.input.checked;
-    this.seriesSelected.emit({ series: this.series, selected: this.input.checked });
   }
 
   getSeriesDimension() {

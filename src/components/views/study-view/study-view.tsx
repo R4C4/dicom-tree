@@ -35,7 +35,7 @@ export class StudyView {
   seriesSelectedHandler(event: CustomEvent) {
     event.stopPropagation();
     let processedEvent = event.detail;
-    processedEvent["studyUid"] = this.study.id;
+    processedEvent["studyUid"] = this.study.uid;
     this.studySelected.emit(processedEvent);
   }
 

@@ -24,14 +24,21 @@ export class DicomApp {
     this.blackList = ['RTDOSE', 'RTINTENT', 'RTPLAN', 'RTSEGANN','RTSTRUCT', 'RWV', 'RESP', 'PLAN', 'PR', 'REG', 'VA'];
   }
 
+
   @Listen('studySelected')
   studySelectedHandler(event: CustomEvent) {
+    this.dicomSelectionHandler(event);
+  }
+
+  dicomSelectionHandler(event: CustomEvent){
+    console.log('Detected a click');
     if (event.detail.selected) {
       if (!this.wantedItems.has(event.detail.series)) {
         this.wantedItems.set(event.detail.series, event.detail.studyUid);
       }
     } else {
       if (this.wantedItems.has(event.detail.series)) {
+        console.log('File ' + event.detail.series + ' was deleted');
         this.wantedItems.delete(event.detail.series);
       }
     }
@@ -43,22 +50,23 @@ export class DicomApp {
    * Get files that have been selected by the Tree view. Files not containing any image Data will be filtered out of this result.
    * DICOM Files with the Headers containing a Modality set with the property {@link DicomApp#blackList} will be ignored and not returned
    */
-  async getSelectedFiles(): Promise<Uint8Array[][]> {
+  async getSelectedFiles(): Promise<ArrayBuffer[][]> {
 
     if(this.dicomParser == null){
       return Promise.reject('No Files loaded. Call loadFiles(...) first');
     }
-    console.log('Unfiltered number of files: ' + this.dicomParser.getParsedData().length);
+
     let filteredFiles = this.dicomParser.filterFilesWithModality(this.blackList);
-    console.log('Filtered number of files: ' + filteredFiles.length);
-    let fileGroups: Uint8Array[][] = [];
-    this.wantedItems.forEach((v, k) => {
-      let series = this.dicomParser.getSeriesData(filteredFiles, k, v);
-      if(series != null){
-        fileGroups.push();
+    let fileGroups: ArrayBuffer[][] = [];
+
+    for( const [key, value] of this.wantedItems.entries()){
+      let series:ArrayBuffer[] = await this.dicomParser.getSeriesData(filteredFiles, key, value);
+      if(series.length > 0){
+        fileGroups.push(series);
       }
-    })
-    console.log('Returned desired files ' + fileGroups.length );
+      console.log("Selected Series " + fileGroups.length);
+    }
+
     return Promise.resolve(fileGroups);
   }
 
@@ -69,7 +77,8 @@ export class DicomApp {
    */
   async loadFiles(fileBuffer:ArrayBuffer[]) {
     let files =   fileBuffer as ArrayBuffer[]
-    this.dicomParser = new DICOMParser(files);
+    this.dicomParser = new DICOMParser();
+    await this.dicomParser.parseAll(files);
     let modelBuilder = new ModelBuilder();
     this.patients = modelBuilder.buildDICOMModel(this.dicomParser.getParsedData());
     this.ready = true;

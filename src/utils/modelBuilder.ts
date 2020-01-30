@@ -23,7 +23,7 @@ export class ModelBuilder {
    */
   buildDICOMModel(dataSet: any[]): Patient[] {
     dataSet.forEach((dcmData) => {
-      let patientBuilder = this.readAllDefinedAttributes(patientAttributes, dcmData);
+      let patientBuilder = ModelBuilder.readAllDefinedAttributes(patientAttributes, dcmData);
       if (!patientBuilder.has('Id') || binaryToString(patientBuilder.get('Id')) == "") {
         //Skip any files that cannot be associated in the Model
         return;
@@ -35,7 +35,7 @@ export class ModelBuilder {
 
     this.patients.forEach((patient) => {
       let patientSpecificDataSet = dataSet.filter((dcmFile) => {
-        let patientBuilder = this.readAllDefinedAttributes(patientAttributes, dcmFile);
+        let patientBuilder = ModelBuilder.readAllDefinedAttributes(patientAttributes, dcmFile);
         return binaryToString(patientBuilder.get('Id')) == patient.id
       });
       if (patientSpecificDataSet.length < 1) {
@@ -56,7 +56,7 @@ export class ModelBuilder {
  
     dataSet.forEach((dcmData) => {
 
-      let studyBuilder = this.readAllDefinedAttributes(studyAttributes, dcmData);
+      let studyBuilder = ModelBuilder.readAllDefinedAttributes(studyAttributes, dcmData);
       if (!studyBuilder.has('UId') || binaryToString(studyBuilder.get('UId')) == "") {
         //Skip any files that cannot be associated in the Study Model
         return;
@@ -70,7 +70,7 @@ export class ModelBuilder {
 
     studies.forEach((study) => {
       let studySpecificDataSet = dataSet.filter((dcmFile) =>{ 
-        let studyBuilder = this.readAllDefinedAttributes(studyAttributes, dcmFile);
+        let studyBuilder = ModelBuilder.readAllDefinedAttributes(studyAttributes, dcmFile);
         return binaryToString(studyBuilder.get('UId')) == study.uid
       });
       if (studySpecificDataSet.length < 1) {
@@ -90,10 +90,10 @@ export class ModelBuilder {
   private buildSeriesModel(dataSet: any[]): Series[] {
     let series: Series[] = [];
     dataSet.forEach((dcmData) => {
-      let seriesBuilder = this.readAllDefinedAttributes(seriesAttributes, dcmData);
+      let seriesBuilder = ModelBuilder.readAllDefinedAttributes(seriesAttributes, dcmData);
       //Primary match with seriesID, secondary match with seriesNumber
       let matchCritireon: String = "";
-      if (!seriesBuilder.has('InstanceUId') || binaryToString(seriesBuilder.get('InstanceUId')) == "") {
+      if (!seriesBuilder.has('UId') || binaryToString(seriesBuilder.get('UId')) == "") {
         if (!seriesBuilder.has('SeriesNumber') || binaryToString(seriesBuilder.get('SeriesNumber')) == "") {
 
           return;
@@ -102,7 +102,7 @@ export class ModelBuilder {
           matchCritireon = binaryToString(seriesBuilder.get('SeriesNumber'));
         }
       } else {
-        matchCritireon = binaryToString(seriesBuilder.get('InstanceUId'));
+        matchCritireon = binaryToString(seriesBuilder.get('UId'));
       }
       if (!series.some((element) => (element.uid == matchCritireon) && !series.some((element) => { element.number == matchCritireon }))) {
         series.push(new Series(seriesBuilder));
@@ -110,7 +110,7 @@ export class ModelBuilder {
     });
 
     series.forEach((seriesItem) => {
-      let seriesSpecificDataSet = dataSet.filter((dcmFile) => dcmFile.string(seriesAttributes.InstanceUId) == seriesItem.uid);
+      let seriesSpecificDataSet = dataSet.filter((dcmFile) => dcmFile.string(seriesAttributes.UId) == seriesItem.uid);
       if (seriesSpecificDataSet.length < 1) {
         seriesSpecificDataSet = dataSet.filter((dcmFile => dcmFile.string(seriesAttributes.SeriesNumber) == seriesItem.number));
         if (seriesSpecificDataSet.length < 1) {
@@ -129,7 +129,7 @@ export class ModelBuilder {
     let images: Image[] = [];
 
     dataSet.forEach((dcmData) => {
-      let imageBuilder = this.readAllDefinedAttributes(imageAttributes, dcmData);
+      let imageBuilder = ModelBuilder.readAllDefinedAttributes(imageAttributes, dcmData);
       images.push(new Image(imageBuilder));
     });
     return images;
@@ -140,7 +140,7 @@ export class ModelBuilder {
    * @param attrDescriptionModel Model description of Dicom IOD containing desired Tag Locations
    * @param dataSet Parsed DICOM DataSet from single DICOM Object
    */
-  private readAllDefinedAttributes(attrDescriptionModel, dataSet) {
+  public static readAllDefinedAttributes(attrDescriptionModel, dataSet) {
     let _registeredProperties = new Map<string, Uint8Array>();
     for (var element in attrDescriptionModel) {
       if (attrDescriptionModel.hasOwnProperty(element)) {
