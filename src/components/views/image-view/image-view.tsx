@@ -23,7 +23,7 @@ export class ImageComponent {
       return (
         <Host class="ml-n2">
           <ul class="list-group" slot="content">
-            <property-item descriptor="Number" value={this.image.number}></property-item>
+            <property-item descriptor="Number" value={this.image.number.toString()}></property-item>
             <property-item descriptor="Dimension (CxR)" value={this.getImageDimension()}></property-item>
             <property-item descriptor="Patient Position" value={this.image.position}></property-item>
           </ul>

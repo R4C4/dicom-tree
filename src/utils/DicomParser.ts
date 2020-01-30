@@ -6,18 +6,22 @@ import { binaryToString } from './dataTypeParser';
 
 import seriesAttributes from '../assets/SeriesAttributes.json';
 import studyAttributes from '../assets/StudyAttributes.json';
+import imageAttributes from '../assets/ImageAttributes.json';
+
+import {Image } from '../model/Image';
+
+import HashTable from 'jshashtable';
 
 export class DICOMParser {
   private dataSet: any[] = [];
-  private parsedToRawMapping = {};
-
+  private mapping = new HashTable();
 
   async parseAll(buffer: ArrayBuffer[]) {
+    this.mapping = new HashTable();
     for (var i = 0; i < buffer.length; i++) {
       let uint8Array = new Uint8Array(buffer[i]);
       let parsedData = dicomParser.parseDicom(uint8Array);
-      let parsedDataHash = await this.generateHash(parsedData);
-      this.parsedToRawMapping[parsedDataHash] = buffer[i];
+      this.mapping.put(parsedData, buffer[i]);
       this.dataSet.push(parsedData);
     }
   }
@@ -40,12 +44,21 @@ export class DICOMParser {
     let relevantSeries = relevantStudies.filter((dcmFile) => {
       let seriesBuilder = ModelBuilder.readAllDefinedAttributes(seriesAttributes, dcmFile);
       let identifier = binaryToString(seriesBuilder.get('UId')).normalize();
-
-      if (series.uid == "1.3.6.1.4.1.14519.5.2.1.5168.2407.154839094381615149260578924786".normalize()) {
-      }
-
       return series.uid.normalize() == identifier;
     });
+
+    relevantSeries.sort( (a, b) =>{
+      let imagesBuildera = ModelBuilder.readAllDefinedAttributes(imageAttributes, a);
+      let imagesBuilderb = ModelBuilder.readAllDefinedAttributes(imageAttributes, b);
+
+      let imagesa = new Image(imagesBuildera);
+      let imagesb = new Image(imagesBuilderb);
+
+      let numbera = imagesa.number as number;
+      let numberb = imagesb.number as number;
+
+      return numbera - numberb;
+    })
 
     if (relevantSeries.length == 0) {
       return [];
@@ -54,20 +67,17 @@ export class DICOMParser {
 
     let originalData: ArrayBuffer[] = [];
     for (var i = 0; i < relevantSeries.length; i++) {
-      let searchKey = await this.generateHash(relevantSeries[i]);
-      let rawData = this.parsedToRawMapping[searchKey];
+      let rawData:ArrayBuffer = this.mapping.get(relevantSeries[i]);
       originalData.push(rawData);
     }
-
+  
     return originalData;
   }
 
-  async generateHash(obj) {
-    const uint8 = new TextEncoder().encode(obj);
-    const buffer = await crypto.subtle.digest('SHA-256', uint8);
-    const hashArray = Array.from(new Uint8Array(buffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  serialize(buf){
+    return String.fromCharCode.apply(null, new Uint16Array(buf));
   }
+
 
   filterFilesWithModality(modalities: String[]): any[] {
     let list = this.dataSet;

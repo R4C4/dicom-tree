@@ -14,13 +14,13 @@
 
 ## Methods
 
-### `getSelectedFiles() => Promise<Uint8Array[][]>`
+### `getSelectedFiles() => Promise<ArrayBuffer[][]>`
 
 
 
 #### Returns
 
-Type: `Promise<Uint8Array[][]>`
+Type: `Promise<ArrayBuffer[][]>`
 
 
 

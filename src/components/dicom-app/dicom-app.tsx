@@ -63,6 +63,9 @@ export class DicomApp {
         fileGroups.push(series);
       }
     }
+    for(var i = 0; i < fileGroups.length; i++){
+      console.log(fileGroups[i]);
+    }
 
     return Promise.resolve(fileGroups);
   }
