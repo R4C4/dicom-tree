@@ -31,14 +31,12 @@ export class DicomApp {
   }
 
   dicomSelectionHandler(event: CustomEvent){
-    console.log('Detected a click');
     if (event.detail.selected) {
       if (!this.wantedItems.has(event.detail.series)) {
         this.wantedItems.set(event.detail.series, event.detail.studyUid);
       }
     } else {
       if (this.wantedItems.has(event.detail.series)) {
-        console.log('File ' + event.detail.series + ' was deleted');
         this.wantedItems.delete(event.detail.series);
       }
     }
@@ -64,7 +62,6 @@ export class DicomApp {
       if(series.length > 0){
         fileGroups.push(series);
       }
-      console.log("Selected Series " + fileGroups.length);
     }
 
     return Promise.resolve(fileGroups);

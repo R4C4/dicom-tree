@@ -11,16 +11,15 @@ export class DICOMParser {
   private dataSet: any[] = [];
   private parsedToRawMapping = {};
 
-  
+
   async parseAll(buffer: ArrayBuffer[]) {
-    for(var i = 0; i < buffer.length; i++){
+    for (var i = 0; i < buffer.length; i++) {
       let uint8Array = new Uint8Array(buffer[i]);
       let parsedData = dicomParser.parseDicom(uint8Array);
       let parsedDataHash = await this.generateHash(parsedData);
       this.parsedToRawMapping[parsedDataHash] = buffer[i];
       this.dataSet.push(parsedData);
     }
-    console.log("Files parsed");
   }
 
   getParsedData() {
@@ -43,7 +42,6 @@ export class DICOMParser {
       let identifier = binaryToString(seriesBuilder.get('UId')).normalize();
 
       if (series.uid == "1.3.6.1.4.1.14519.5.2.1.5168.2407.154839094381615149260578924786".normalize()) {
-        console.log("PT Series");
       }
 
       return series.uid.normalize() == identifier;
@@ -53,16 +51,13 @@ export class DICOMParser {
       return [];
     }
 
-    console.log('Series Found ' + relevantSeries.length);
 
-    let originalData:ArrayBuffer[] = [];
-    for(var i = 0; i < relevantSeries.length; i++){
+    let originalData: ArrayBuffer[] = [];
+    for (var i = 0; i < relevantSeries.length; i++) {
       let searchKey = await this.generateHash(relevantSeries[i]);
       let rawData = this.parsedToRawMapping[searchKey];
       originalData.push(rawData);
     }
-
-    console.log('Original Data Entries' + originalData.length);
 
     return originalData;
   }
