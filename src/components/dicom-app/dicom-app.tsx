@@ -3,7 +3,7 @@ import { Component, Host, h, Listen, State, Method, Prop } from '@stencil/core';
 import { Patient } from '../../model/Patient';
 import { Series } from '../../model/Series';
 import { ModelBuilder } from '../../utils/modelBuilder';
-import { DICOMParser } from '../../utils/loader';
+import { DICOMParser } from '../../utils/DicomParser';
 
 @Component({
   tag: 'dicom-app',
@@ -48,11 +48,17 @@ export class DicomApp {
     if(this.dicomParser == null){
       return Promise.reject('No Files loaded. Call loadFiles(...) first');
     }
-    let wantedFiles = this.dicomParser.filterFilesWithModality(this.blackList);
-    let fileGroups: Uint8Array[][] = [[]];
+    console.log('Unfiltered number of files: ' + this.dicomParser.getParsedData().length);
+    let filteredFiles = this.dicomParser.filterFilesWithModality(this.blackList);
+    console.log('Filtered number of files: ' + filteredFiles.length);
+    let fileGroups: Uint8Array[][] = [];
     this.wantedItems.forEach((v, k) => {
-      fileGroups.push(this.dicomParser.getSeriesData(wantedFiles, k, v));
+      let series = this.dicomParser.getSeriesData(filteredFiles, k, v);
+      if(series != null){
+        fileGroups.push();
+      }
     })
+    console.log('Returned desired files ' + fileGroups.length );
     return Promise.resolve(fileGroups);
   }
 

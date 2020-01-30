@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script type="module" src="/build/dicom-tree.esm.js"></script>
   <script nomodule src="/build/dicom-tree.js"></script>
+  <script>
+    function getData(){
+      const app = document.querySelector('dicom-app');
+      app.getSelectedFiles();
+    }
+  </script>
 </head>
 <body>
     <folder-select>
@@ -15,6 +21,7 @@
       <label slot="buttonStyle" class ="btn btn-lg btn-dark">Select Files</label>
     </folder-select>
     <dicom-app></dicom-app>
+    <button onclick=getData()>Get selectedData</button>
     <script>
       const fileSelector = document.querySelector('folder-select');
       const dicomApp = document.querySelector('dicom-app');

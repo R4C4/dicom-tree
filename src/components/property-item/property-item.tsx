@@ -15,7 +15,7 @@ export class PropertyList {
     return (
       <Host>
           <div class="py-0 list-group-item">
-            <p class="list-group-item-text">
+            <p class="list-group-item-text text-wrap">
               {this.descriptor} : {this.value}
             </p>
           </div>

@@ -68,10 +68,6 @@ export class ModelBuilder {
       }
     });
 
-    studies.map((study) => {
-      console.log("Study found with uid " + study.uid);
-    });
-
     studies.forEach((study) => {
       let studySpecificDataSet = dataSet.filter((dcmFile) =>{ 
         let studyBuilder = this.readAllDefinedAttributes(studyAttributes, dcmFile);

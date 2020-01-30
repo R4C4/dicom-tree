@@ -19,13 +19,17 @@ export class FolderSelect {
     filesLoaded: EventEmitter;
     fileBuffer: ArrayBuffer[];
 
+    private filesProcessed:number;
+
     private input?: HTMLInputElement;
 
     constructor() {
-        this.fileBuffer = [];
     }
 
-    connectedCallback() { }
+    connectedCallback() { 
+        this.fileBuffer = [];
+        this.filesProcessed = 0;
+    }
 
     componentDidLoad() {
 
@@ -35,14 +39,15 @@ export class FolderSelect {
 
     private onInputChange(files: FileList) {
         this.fileBuffer = [];
+        console.log('files Input raw' + files.length);
         let filteredFiles = Array.from(files).filter((file) => file.name.split('.').pop() == 'dcm');
+        console.log('files Input filtered' + files.length);
         for (var i = 0; i < filteredFiles.length; i++) {
-            this.uploadFile(filteredFiles[i], i == (filteredFiles.length - 1));
+            this.uploadFile(filteredFiles[i], filteredFiles.length);
         }
-
     }
 
-    private uploadFile(file: File, lastFile: boolean) {
+    private uploadFile(file: File, maxFiles: number) {
         // create a new instance of HTML5 FileReader api to handle uploading
         const reader = new FileReader();
         reader.onloadstart = () => {
@@ -53,7 +58,9 @@ export class FolderSelect {
                 return;
             }
             this.fileBuffer.push(e.target.result as ArrayBuffer);
-            if (lastFile) {
+            this.filesProcessed++;
+
+            if (this.filesProcessed == maxFiles ) {
                 this.filesLoaded.emit(this.fileBuffer);
             }
             return;
