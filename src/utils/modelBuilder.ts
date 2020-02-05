@@ -89,7 +89,6 @@ export class ModelBuilder {
    */
   private buildSeriesModel(dataSet: any[]): Series[] {
     let series: Series[] = [];
-    console.log('_______________________Series_________________________');
     dataSet.forEach((dcmData) => {
       let seriesBuilder = ModelBuilder.readAllDefinedAttributes(seriesAttributes, dcmData);
       let uId: String =  binaryToString(seriesBuilder.get('UId'));
@@ -97,13 +96,11 @@ export class ModelBuilder {
         return;
       }
       if (!series.some((element) => (element.uid === uId) )) {
-        console.log("Registering Series with" + uId);
         series.push(new Series(seriesBuilder));
       }
     });
 
     series.forEach((seriesItem) => {
-      console.log('Searching for Datasets; key: ' + seriesItem.uid)
       let seriesSpecificDataSet = dataSet.filter((dcmFile) =>{
         let seriesBuilder = ModelBuilder.readAllDefinedAttributes(seriesAttributes, dcmFile);
         let uid = binaryToString(seriesBuilder.get('UId'));
