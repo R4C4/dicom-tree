@@ -19,11 +19,22 @@ export class DICOMParser {
   async parseAll(buffer: ArrayBuffer[]) {
     this.mapping = new HashTable();
     for (var i = 0; i < buffer.length; i++) {
-      let uint8Array = new Uint8Array(buffer[i]);
-      let parsedData = dicomParser.parseDicom(uint8Array);
+      let typedBuffer = new Uint8Array(buffer[i]);
+      if(!this.validateDicomHeader(typedBuffer)){
+        //Skip completely invalid files
+        continue;
+      }
+      let parsedData = dicomParser.parseDicom(typedBuffer);
       this.mapping.put(parsedData, buffer[i]);
       this.dataSet.push(parsedData);
     }
+  }
+
+  private validateDicomHeader(buffer:Uint8Array):boolean{
+
+    //@see http://dicom.nema.org/medical/dicom/current/output/chtml/part10/chapter_7.html Section 7.1 File Meta Information
+    var prefix = new TextDecoder('utf-8').decode(buffer.slice(128, 132));
+    return prefix === 'DICM';
   }
 
   getParsedData() {
@@ -64,12 +75,15 @@ export class DICOMParser {
       return [];
     }
 
+    console.log('Selected ' + relevantSeries.length );
 
     let originalData: ArrayBuffer[] = [];
     for (var i = 0; i < relevantSeries.length; i++) {
       let rawData:ArrayBuffer = this.mapping.get(relevantSeries[i]);
       originalData.push(rawData);
     }
+
+    console.log('Original Data ' + originalData.length);
   
     return originalData;
   }

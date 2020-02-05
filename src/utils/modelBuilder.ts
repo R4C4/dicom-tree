@@ -89,38 +89,32 @@ export class ModelBuilder {
    */
   private buildSeriesModel(dataSet: any[]): Series[] {
     let series: Series[] = [];
+    console.log('_______________________Series_________________________');
     dataSet.forEach((dcmData) => {
       let seriesBuilder = ModelBuilder.readAllDefinedAttributes(seriesAttributes, dcmData);
-      //Primary match with seriesID, secondary match with seriesNumber
-      let matchCritireon: String = "";
-      if (!seriesBuilder.has('UId') || binaryToString(seriesBuilder.get('UId')) == "") {
-        if (!seriesBuilder.has('SeriesNumber') || binaryToString(seriesBuilder.get('SeriesNumber')) == "") {
-
-          return;
-        }
-        else {
-          matchCritireon = binaryToString(seriesBuilder.get('SeriesNumber'));
-        }
-      } else {
-        matchCritireon = binaryToString(seriesBuilder.get('UId'));
+      let uId: String =  binaryToString(seriesBuilder.get('UId'));
+      if( uId === null|| uId === ""){
+        return;
       }
-      if (!series.some((element) => (element.uid == matchCritireon) && !series.some((element) => { element.number == matchCritireon }))) {
+      if (!series.some((element) => (element.uid === uId) )) {
+        console.log("Registering Series with" + uId);
         series.push(new Series(seriesBuilder));
       }
     });
 
     series.forEach((seriesItem) => {
-      let seriesSpecificDataSet = dataSet.filter((dcmFile) => dcmFile.string(seriesAttributes.UId) == seriesItem.uid);
+      console.log('Searching for Datasets; key: ' + seriesItem.uid)
+      let seriesSpecificDataSet = dataSet.filter((dcmFile) =>{
+        let seriesBuilder = ModelBuilder.readAllDefinedAttributes(seriesAttributes, dcmFile);
+        let uid = binaryToString(seriesBuilder.get('UId'));
+        return uid === seriesItem.uid;
+      });
       if (seriesSpecificDataSet.length < 1) {
-        seriesSpecificDataSet = dataSet.filter((dcmFile => dcmFile.string(seriesAttributes.SeriesNumber) == seriesItem.number));
-        if (seriesSpecificDataSet.length < 1) {
-          throw new RangeError("Series Model cannot be build from provided Datasets. A DataSet with no registered Study was found. Dataset SeriesNumber: " + seriesItem.number);
-        }
+          throw new RangeError("Series Model cannot be build from provided Datasets. A DataSet with no registered Series was found. Dataset SeriesNumber: " + seriesItem.uid);
       } else {
         seriesItem.images = this.buildImagesModel(seriesSpecificDataSet);
       }
     });
-
     return series;
   }
 

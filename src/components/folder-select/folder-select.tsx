@@ -39,18 +39,16 @@ export class FolderSelect {
 
     private onInputChange(files: FileList) {
         this.fileBuffer = [];
-        let filteredFiles = Array.from(files).filter((file) => file.name.split('.').pop() == 'dcm');
-        for (var i = 0; i < filteredFiles.length; i++) {
-            this.uploadFile(filteredFiles[i], filteredFiles.length);
+        for (var i = 0; i < files.length; i++) {
+            this.uploadFile(files[i], files.length);
         }
     }
 
     private uploadFile(file: File, maxFiles: number) {
-        // create a new instance of HTML5 FileReader api to handle uploading
         const reader = new FileReader();
         reader.onloadstart = () => {
         }
-
+        
         reader.onload = (e) => {
             if (e.target.result instanceof String) {
                 return;

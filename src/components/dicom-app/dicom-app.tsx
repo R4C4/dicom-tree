@@ -63,7 +63,7 @@ export class DicomApp {
         fileGroups.push(series);
       }
     }
-    return Promise.resolve(fileGroups);
+    return fileGroups;
   }
 
   @Method()
